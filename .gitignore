@@ -23,6 +23,12 @@ composer.phar
 /logs/
 /cache/
 /tmp/
+/storage/cache/templates_c/*
+/storage/cache/cache/*
+!/storage/cache/templates_c/.gitkeep
+!/storage/cache/cache/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
 
 # Node tooling (if used for frontend assets)
 /node_modules/
@@ -30,4 +36,7 @@ npm-debug.log*
 
 # User uploads
 /uploads/
+/public/images/*
+!/public/images/.gitkeep
+
 /docs
