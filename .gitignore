@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# PHP / Composer
+/vendor/
+composer.phar
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Logs, cache, temp files
+*.log
+/logs/
+/cache/
+/tmp/
+
+# Node tooling (if used for frontend assets)
+/node_modules/
+npm-debug.log*
+
+# User uploads
+/uploads/
+/docs
