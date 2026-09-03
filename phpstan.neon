@@ -5,6 +5,4 @@ parameters:
         - bin
         - database
         - tests
-    excludePaths:
-        - database/seeders/*
     tmpDir: storage/phpstan
