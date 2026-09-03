@@ -1,0 +1,18 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: $spacing;
+    margin: ($spacing * 2) 0;
+
+    &__link {
+        padding: 8px 16px;
+        border: 1px solid $color-border;
+        border-radius: $radius;
+        color: $color-text;
+    }
+
+    &__status {
+        color: $color-muted;
+        font-size: 14px;
+    }
+}

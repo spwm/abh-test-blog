@@ -1,0 +1,19 @@
+.site-header {
+    background: $color-surface;
+    border-bottom: 1px solid $color-border;
+
+    &__logo {
+        display: inline-block;
+        padding: $spacing 0;
+        font-weight: 700;
+        font-size: 20px;
+        color: $color-text;
+    }
+}
+
+.site-footer {
+    margin-top: $spacing * 3;
+    padding: $spacing 0;
+    color: $color-muted;
+    font-size: 14px;
+}

@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: $font-family;
+    background: $color-bg;
+    color: $color-text;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 $spacing;
+}
+
+a {
+    color: $color-primary;
+    text-decoration: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: $radius;
+    background: $color-primary;
+    color: #fff;
+    font-size: 14px;
+}
