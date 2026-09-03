@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Exception;
 use App\Models\Post;
 use App\Repositories\Contracts\PostRepositoryInterface;
 use DateTimeImmutable;
@@ -76,6 +77,7 @@ final class PostRepository implements PostRepositoryInterface
 
     /**
      * @param string $slug Post slug to look up.
+     * @throws Exception
      */
     public function findBySlug(string $slug): ?Post
     {
@@ -108,6 +110,7 @@ final class PostRepository implements PostRepositoryInterface
     /**
      * @param Post $post Post to find related candidates for.
      * @return Post[] Posts sharing at least one category with $post, excluding $post itself.
+     * @throws Exception
      */
     public function findCandidatesSharingCategory(Post $post): array
     {
@@ -148,7 +151,7 @@ final class PostRepository implements PostRepositoryInterface
      *
      * @param array<string, mixed> $row
      * @param int[] $categoryIds
-     * @throws \Exception
+     * @throws Exception
      */
     private function hydrate(array $row, array $categoryIds = []): Post
     {
