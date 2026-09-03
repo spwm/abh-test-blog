@@ -10,7 +10,10 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^10.5",
-        "fakerphp/faker": "^1.23"
+        "fakerphp/faker": "^1.23",
+        "phpstan/phpstan": "^2.2",
+        "squizlabs/php_codesniffer": "^4.0",
+        "rector/rector": "^2.6"
     },
     "autoload": {
         "psr-4": {
@@ -26,6 +29,15 @@
     "scripts": {
         "test": "phpunit",
         "migrate": "php bin/migrate.php",
-        "seed": "php bin/seed.php"
+        "seed": "php bin/seed.php",
+        "stan": "phpstan analyse",
+        "cs": "phpcs",
+        "cs-fix": "phpcbf",
+        "rector": "rector process --dry-run",
+        "rector-fix": "rector process",
+        "analyse": [
+            "@stan",
+            "@cs"
+        ]
     }
 }

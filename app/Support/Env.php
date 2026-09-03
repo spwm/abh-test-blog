@@ -22,7 +22,7 @@ final class Env
                 continue;
             }
 
-            [$key, $value] = array_map('trim', explode('=', $line, 2));
+            [$key, $value] = array_map(trim(...), explode('=', $line, 2));
             $value = trim($value, "\"'");
 
             if (getenv($key) === false) {

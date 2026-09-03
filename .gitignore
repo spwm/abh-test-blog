@@ -29,6 +29,7 @@ composer.phar
 !/storage/cache/cache/.gitkeep
 /storage/logs/*
 !/storage/logs/.gitkeep
+/storage/phpstan/
 
 # Node tooling (if used for frontend assets)
 /node_modules/
