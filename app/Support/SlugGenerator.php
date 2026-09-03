@@ -15,6 +15,12 @@ final class SlugGenerator
         'ы' => 'y', 'ь' => '', 'э' => 'e', 'ю' => 'yu', 'я' => 'ya',
     ];
 
+    /**
+     * Converts a title into a lowercase, hyphenated ASCII slug.
+     *
+     * @param string $title Source title, may contain Cyrillic characters.
+     * @return string A non-empty slug; falls back to "n-a" when the title has no alphanumeric content.
+     */
     public function generate(string $title): string
     {
         $lower = mb_strtolower($title);
@@ -26,13 +32,17 @@ final class SlugGenerator
     }
 
     /**
-     * @param callable(string): bool $exists
+     * Generates a slug for the title, appending a numeric suffix until it no longer collides.
+     *
+     * @param string $title Source title to slugify.
+     * @param callable(string): bool $exists Returns true when the candidate slug is already taken.
+     * @return string A slug guaranteed not to satisfy $exists.
      */
     public function unique(string $title, callable $exists): string
     {
         $base = $this->generate($title);
         $slug = $base;
-        $suffix = 2;
+        $suffix = 2; // First collision becomes "-2" (the bare slug counts as the implicit "first" one).
 
         while ($exists($slug)) {
             $slug = $base . '-' . $suffix;
