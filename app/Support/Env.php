@@ -2,8 +2,14 @@
 
 namespace App\Support;
 
+/**
+ * Loads KEY=VALUE lines from a .env file into getenv()/$_ENV.
+ */
 final class Env
 {
+    /**
+     * @param string $path Absolute path to the .env file.
+     */
     public static function load(string $path): void
     {
         if (!is_file($path)) {
