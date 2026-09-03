@@ -56,6 +56,11 @@ final class RelatedPostsRanker
         return $scored;
     }
 
+    /**
+     * @param Post $a
+     * @param Post $b
+     * @return int
+     */
     private function sharedCategoryCount(Post $a, Post $b): int
     {
         return count(array_intersect($a->categoryIds, $b->categoryIds));
