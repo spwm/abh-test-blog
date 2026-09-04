@@ -12,5 +12,6 @@
         {block name="content"}{/block}
     </main>
     {include file="partials/footer.tpl"}
+    <script src="/js/main.js" defer></script>
 </body>
 </html>

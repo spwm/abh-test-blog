@@ -80,7 +80,12 @@ final class Application
                 $this->perPage,
                 $this->view
             ),
-            PostController::class => new PostController($this->posts, new RelatedPostsRanker(), $this->view),
+            PostController::class => new PostController(
+                $this->posts,
+                new RelatedPostsRanker(),
+                $this->categories,
+                $this->view
+            ),
             default => null,
         };
     }

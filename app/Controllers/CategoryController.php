@@ -20,7 +20,7 @@ final class CategoryController extends Controller
         private readonly int $perPage,
         SmartyView $view,
     ) {
-        parent::__construct($view);
+        parent::__construct($view, $categories);
     }
 
     /**

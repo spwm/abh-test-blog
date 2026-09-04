@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Http\Response;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\View\SmartyView;
 use Smarty\Exception;
 
@@ -11,12 +12,18 @@ use Smarty\Exception;
  */
 abstract class Controller
 {
-    public function __construct(protected SmartyView $view)
-    {
+    /**
+     * @param SmartyView $view Template renderer.
+     * @param CategoryRepositoryInterface $navCategories Category repository used to populate the site-wide nav menu.
+     */
+    public function __construct(
+        protected SmartyView $view,
+        private readonly CategoryRepositoryInterface $navCategories,
+    ) {
     }
 
     /**
-     * Renders a template into a 200 OK response.
+     * Renders a template into a 200 OK response, adding the site-wide nav menu categories.
      *
      * @param string $template Template filename, relative to the template dir.
      * @param array<string, mixed> $data Variables to make available in the template.
@@ -24,6 +31,8 @@ abstract class Controller
      */
     protected function render(string $template, array $data = []): Response
     {
+        $data['navCategories'] = $this->navCategories->withPosts();
+
         return new Response($this->view->render($template, $data));
     }
 

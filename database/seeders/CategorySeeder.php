@@ -20,8 +20,11 @@ final class CategorySeeder
      * @param SlugGenerator $slugs Slug generator used for category slugs.
      * @param Generator $faker Faker instance used for category descriptions.
      */
-    public function __construct(private readonly PDO $pdo, private readonly SlugGenerator $slugs, private readonly Generator $faker)
-    {
+    public function __construct(
+        private readonly PDO $pdo,
+        private readonly SlugGenerator $slugs,
+        private readonly Generator $faker,
+    ) {
     }
 
     /**

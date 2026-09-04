@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Http\Request;
 use App\Http\Response;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\PostRepositoryInterface;
 use App\Support\RelatedPostsRanker;
 use App\View\SmartyView;
@@ -17,9 +18,10 @@ final class PostController extends Controller
     public function __construct(
         private readonly PostRepositoryInterface $posts,
         private readonly RelatedPostsRanker $ranker,
+        CategoryRepositoryInterface $categories,
         SmartyView $view,
     ) {
-        parent::__construct($view);
+        parent::__construct($view, $categories);
     }
 
     /**

@@ -19,7 +19,7 @@ final class HomeController extends Controller
         private readonly PostRepositoryInterface $posts,
         SmartyView $view,
     ) {
-        parent::__construct($view);
+        parent::__construct($view, $categories);
     }
 
     /**

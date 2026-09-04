@@ -34,6 +34,12 @@ a {
   background: #ffffff;
   border-bottom: 1px solid #e2e5ea;
 }
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
 .site-header__logo {
   display: inline-block;
   padding: 16px 0;
@@ -42,6 +48,57 @@ a {
   color: #1f2430;
 }
 
+.site-nav__list {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-nav__list a {
+  color: #1f2430;
+  font-size: 14px;
+}
+
+.site-nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 28px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.site-nav__toggle-bar {
+  display: block;
+  height: 2px;
+  background: #1f2430;
+  border-radius: 1px;
+}
+
+@media (max-width: 640px) {
+  .site-nav__toggle {
+    display: flex;
+  }
+  .site-nav__list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e5ea;
+    padding: 16px;
+  }
+  .site-nav.is-open .site-nav__list {
+    display: flex;
+  }
+}
 .site-footer {
   margin-top: 48px;
   padding: 16px 0;
@@ -69,6 +126,9 @@ a {
 }
 
 .post-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background: #ffffff;
   border: 1px solid #e2e5ea;
   border-radius: 8px;
@@ -81,6 +141,9 @@ a {
   object-fit: cover;
 }
 .post-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 16px;
 }
 .post-card__title {
@@ -94,7 +157,8 @@ a {
 .post-card__meta {
   display: flex;
   justify-content: space-between;
-  margin-top: 16px;
+  margin-top: auto;
+  padding-top: 16px;
   font-size: 12px;
   color: #6b7280;
 }
