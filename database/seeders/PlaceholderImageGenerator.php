@@ -12,7 +12,7 @@ final class PlaceholderImageGenerator
     /**
      * @param string $outputDir Directory the placeholder images are written to (created if missing).
      */
-    public function __construct(private string $outputDir)
+    public function __construct(private readonly string $outputDir)
     {
         if (!is_dir($this->outputDir)) {
             mkdir($this->outputDir, 0777, true);

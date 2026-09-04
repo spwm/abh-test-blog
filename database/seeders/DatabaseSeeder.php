@@ -14,7 +14,7 @@ final class DatabaseSeeder
     /**
      * @param PDO $pdo Database connection.
      */
-    public function __construct(private PDO $pdo)
+    public function __construct(private readonly PDO $pdo)
     {
     }
 

@@ -20,10 +20,10 @@ final class PostSeeder
      * @param PlaceholderImageGenerator $images Placeholder image generator for post covers.
      */
     public function __construct(
-        private PDO $pdo,
-        private SlugGenerator $slugs,
-        private Generator $faker,
-        private PlaceholderImageGenerator $images,
+        private readonly PDO $pdo,
+        private readonly SlugGenerator $slugs,
+        private readonly Generator $faker,
+        private readonly PlaceholderImageGenerator $images,
     ) {
     }
 
@@ -42,18 +42,18 @@ final class PostSeeder
                 'INSERT INTO posts (title, slug, description, content, image, views, published_at, created_at)
                  VALUES (:title, :slug, :description, :content, :image, :views, :published_at, NOW())'
             );
-            $stmt->execute([
+            $stmt->execute(params: [
                 'title' => $title,
                 'slug' => $slug,
                 'description' => $this->faker->sentence(20),
                 'content' => implode("\n\n", $this->faker->paragraphs(5)),
                 'image' => $this->images->generate($i),
-                'views' => random_int(0, 500),
+                'views' => rand(0, 500),
                 'published_at' => $this->faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d H:i:s'),
             ]);
 
             $postId = (int) $this->pdo->lastInsertId();
-            $assigned = $this->faker->randomElements($categoryIds, random_int(1, 2));
+            $assigned = $this->faker->randomElements($categoryIds, rand(1, 2));
 
             $link = $this->pdo->prepare(
                 'INSERT INTO post_category (post_id, category_id) VALUES (:post_id, :category_id)'
