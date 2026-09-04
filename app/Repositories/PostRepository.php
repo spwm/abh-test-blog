@@ -127,9 +127,14 @@ final class PostRepository implements PostRepositoryInterface
         $stmt->execute([...$post->categoryIds, $post->id]);
 
         $rows = $stmt->fetchAll();
+        if ($rows === []) {
+            return [];
+        }
+
+        $categoryIdsByPostId = $this->categoryIdsForPosts(array_column($rows, 'id'));
 
         return array_map(
-            fn (array $row) => $this->hydrate($row, $this->categoryIdsForPost((int) $row['id'])),
+            fn (array $row) => $this->hydrate($row, $categoryIdsByPostId[(int) $row['id']] ?? []),
             $rows
         );
     }
@@ -140,10 +145,31 @@ final class PostRepository implements PostRepositoryInterface
      */
     private function categoryIdsForPost(int $postId): array
     {
-        $stmt = $this->pdo->prepare('SELECT category_id FROM post_category WHERE post_id = :post_id');
-        $stmt->execute(['post_id' => $postId]);
+        return $this->categoryIdsForPosts([$postId])[$postId] ?? [];
+    }
 
-        return array_map(intval(...), $stmt->fetchAll(PDO::FETCH_COLUMN));
+    /**
+     * Looks up category IDs for several posts in a single query, avoiding one query per post.
+     *
+     * @param int[] $postIds Post IDs to look up category IDs for.
+     * @return array<int, int[]> Category IDs, keyed by post ID.
+     */
+    private function categoryIdsForPosts(array $postIds): array
+    {
+        $placeholders = implode(',', array_fill(0, count($postIds), '?'));
+
+        $stmt = $this->pdo->prepare(
+            "SELECT post_id, category_id FROM post_category WHERE post_id IN ({$placeholders})"
+        );
+
+        $stmt->execute(array_map(intval(...), $postIds));
+
+        $categoryIdsByPostId = [];
+        foreach ($stmt->fetchAll() as $link) {
+            $categoryIdsByPostId[(int) $link['post_id']][] = (int) $link['category_id'];
+        }
+
+        return $categoryIdsByPostId;
     }
 
     /**
