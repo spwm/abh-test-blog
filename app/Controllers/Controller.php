@@ -23,26 +23,28 @@ abstract class Controller
     }
 
     /**
-     * Renders a template into a 200 OK response, adding the site-wide nav menu categories.
+     * Renders a template into a response, adding the site-wide nav menu categories.
      *
      * @param string $template Template filename, relative to the template dir.
      * @param array<string, mixed> $data Variables to make available in the template.
+     * @param int $status HTTP status code for the response.
      * @throws Exception
      */
-    protected function render(string $template, array $data = []): Response
+    protected function render(string $template, array $data = [], int $status = 200): Response
     {
         $data['navCategories'] = $this->navCategories->withPosts();
 
-        return new Response($this->view->render($template, $data));
+        return new Response($this->view->render($template, $data), $status);
     }
 
     /**
-     * Builds a 404 Not Found response.
+     * Renders the 404 page with the given message.
      *
-     * @param string $message Body text shown to the client.
+     * @param string $message Text shown on the 404 page.
+     * @throws Exception
      */
     protected function notFound(string $message = 'Страница не найдена'): Response
     {
-        return new Response($message, 404);
+        return $this->render('errors/404.tpl', ['message' => $message], 404);
     }
 }

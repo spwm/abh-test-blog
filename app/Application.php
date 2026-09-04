@@ -52,16 +52,30 @@ final class Application
     {
         $match = $this->router->match($request->method, $request->uri);
         if ($match === null) {
-            return new Response('404 Not Found', 404);
+            return $this->renderNotFound();
         }
 
         [$controllerClass, $action] = $match['handler'];
         $controller = $this->resolveController($controllerClass);
         if ($controller === null) {
-            return new Response('404 Not Found', 404);
+            return $this->renderNotFound();
         }
 
         return $controller->$action($request, $match['params']);
+    }
+
+    /**
+     * Renders the 404 page for a request that could not be matched to a controller.
+     */
+    private function renderNotFound(): Response
+    {
+        return new Response(
+            $this->view->render('errors/404.tpl', [
+                'message' => 'Страница не найдена',
+                'navCategories' => $this->categories->withPosts(),
+            ]),
+            404
+        );
     }
 
     /**

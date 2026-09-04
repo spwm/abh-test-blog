@@ -2,12 +2,23 @@
     box-sizing: border-box;
 }
 
+html,
 body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     font-family: $font-family;
     background: $color-bg;
     color: $color-text;
     line-height: 1.5;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 .container {
@@ -28,4 +39,20 @@ a {
     background: $color-primary;
     color: #fff;
     font-size: 14px;
+}
+
+.error-page {
+    text-align: center;
+    padding: ($spacing * 4) 0;
+
+    h1 {
+        margin: 0;
+        font-size: 64px;
+        color: $color-primary;
+    }
+
+    p {
+        margin: $spacing 0 ($spacing * 2);
+        color: $color-muted;
+    }
 }
